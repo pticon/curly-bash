@@ -113,6 +113,58 @@ function cdl()
 	cd $path && ls -al
 }
 
+function extract()
+{
+	local archive="$1"
+
+	[ -n "$archive" ] || return
+
+	if [ -f $archive ] ; then
+		case $archive in
+			*.tar.bz2)
+				tar xjf $archive ;;
+
+			*.tar.gz)
+				tar xzf $archive ;;
+
+			*.bz2)
+				bunzip2 $archive ;;
+
+			*.rar)
+				rar x $archive ;;
+
+			*.gz)
+				gunzip $archive ;;
+
+			*.tar)
+				tar xf $archive ;;
+
+			*.tbz2)
+				tar xjf $archive ;;
+
+			gz)
+				tar xzf $archive ;;
+
+			*.zip)
+				unzip $archive ;;
+
+			*.Z)
+				uncompress $archive ;;
+
+			*)
+				echo "'$archive' cannot be extracted via extract()" ;;
+		esac
+	else
+		echo "'$archive' is not a valid file"
+	fi
+}
+
+function smiley()
+{
+	echo "●"
+}
+
+
 # PS1
 if [ $(/usr/bin/whoami) = 'root' ]; then
     export PS1="${yellow}\u@\h${white}:${norm}\w${norm}${lred}#${norm} "
