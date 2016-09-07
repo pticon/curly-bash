@@ -83,7 +83,7 @@ function up()
 
 	while [[ $counter -gt 0 ]]
 	do
-		up="$up/.."
+		up="../$up"
 		counter=$(( $counter - 1 ))
 	done
 
