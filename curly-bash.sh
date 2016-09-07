@@ -51,6 +51,10 @@ alias nocomment='grep -Ev '\''^(#|$)'\'''
 
 alias now='date +"%T"'
 
+# Wraps Sprunge, a commandline pastebin tool
+# echo "hello" | sprunge
+# cat file | sprunge
+alias sprunge='curl -F "sprunge=<-" http://sprunge.us'
 
 # function stuffs
 function setproxy()
@@ -162,6 +166,35 @@ function extract()
 function smiley()
 {
 	echo "●"
+}
+
+function check_tor()
+{
+	echo "Checking that Tor is currently running ... "
+	local check5=$(pgrep tor | wc -l)
+	if [[ "$check5" == "0" ]] ; then
+		echo "Process for Tor not found ..."
+		echo "Tor is not currently running ..."
+		echo "Starting Tor ..."
+		if test -x /etc/init.d/tor ; then
+			sudo /etc/init.d/tor start
+		else
+			echo "Could not find init script for Tor ..."
+			echo "Exiting ..."
+			exit 1
+		fi
+	else
+		echo "Tor process found ..."
+		echo "Tor is currently running ..."
+	fi
+}
+
+# Run $@ if it isn't running already.
+function only()
+{
+	if [ -z "`ps -Af | grep -o -w ".*$1" | grep -v grep | grep -v only`" ] ; then
+	    $@
+	fi
 }
 
 

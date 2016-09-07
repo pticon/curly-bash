@@ -1,4 +1,5 @@
 # curly-bash
+The config files I use for my shell. Hope it's helpful !
 
 ## bashrc
 In your bashrc, you could add:
