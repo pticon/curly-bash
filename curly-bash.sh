@@ -1,5 +1,10 @@
 #!/bin/bash
+#
+# You should set:
+# MYPROXY to your proxy environment
+#
 
+#export MYPROXY=
 
 # Use bash-completion, if available
 if [ -f /etc/bash_completion ]; then
@@ -48,6 +53,16 @@ alias now='date +"%T"'
 
 
 # function stuffs
+function setproxy()
+{
+	export ftp_proxy=$MYPROXY
+	export http_proxy=$MYPROXY
+	export https_proxy=$MYPROXY
+	export FTP_PROXY=$MYPROXY
+	export HTTP_PROXY=$MYPROXY
+	export HTTPS_PROXY=$MYPROXY
+}
+
 function unsetproxy()
 {
 	export ftp_proxy=""
