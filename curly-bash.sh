@@ -1,5 +1,8 @@
 #!/bin/bash
 #
+# Check this out for more:
+# http://intuitive.com/wicked/wicked-cool-shell-script-library.shtml
+#
 # You should set (before sourcing this):
 #	MYPROXY to your proxy environment
 #
