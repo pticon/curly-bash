@@ -1,7 +1,7 @@
 #!/bin/bash
 #
-# You should set:
-# MYPROXY to your proxy environment
+# You should set (before sourcing this):
+#	MYPROXY to your proxy environment
 #
 
 #export MYPROXY=
@@ -50,6 +50,8 @@ alias psme='ps -ef | grep $USER'
 alias nocomment='grep -Ev '\''^(#|$)'\'''
 
 alias now='date +"%T"'
+
+alias top='htop'
 
 # Wraps Sprunge, a commandline pastebin tool
 # echo "hello" | sprunge
@@ -197,10 +199,78 @@ function only()
 	fi
 }
 
+function quiet()
+{
+	nohup $1 &>/dev/null &
+}
+
 function top10()
 {
 	history | awk '{CMD[$2]++;count++;}END { for (a in CMD)print CMD[a] " " CMD[a]/count*100 "% " a;}' \
 		| grep -v "./" | column -c3 -s " " -t | sort -nr | nl |  head -n10
+}
+
+function rot13 ()
+{
+        if [ $# -eq 0 ]; then
+                tr '[a-m][n-z][A-M][N-Z]' '[n-z][a-m][N-Z][A-M]'
+        else
+                echo $* | tr '[a-m][n-z][A-M][N-Z]' '[n-z][a-m][N-Z][A-M]'
+        fi
+}
+
+# A bash clock that can run in your terminal window.
+function clock()
+{
+	while true;
+	do
+		clear;
+		echo "===========";
+		date +"%r";
+		echo "===========";
+		sleep 1;
+	done
+}
+
+# Stupid simple note taker
+function note ()
+{
+        #if file doesn't exist, create it
+        [ -f $HOME/.notes ] || touch $HOME/.notes
+
+        #no arguments, print file
+        if [ $# = 0 ]
+        then
+                cat $HOME/.notes
+        #clear file
+        elif [ $1 = -c ]
+        then
+                > $HOME/.notes
+        #add all arguments to file
+        else
+                echo "$@" >> $HOME/.notes
+        fi
+}
+
+# cp with a progress bar
+function cp_p()
+{
+   set -e
+   strace -q -ewrite cp -- "${1}" "${2}" 2>&1 \
+      | awk '{
+        count += $NF
+            if (count % 10 == 0) {
+               percent = count / total_size * 100
+               printf "%3d%% [", percent
+               for (i=0;i<=percent;i++)
+                  printf "="
+               printf ">"
+               for (i=percent;i<100;i++)
+                  printf " "
+               printf "]\r"
+            }
+         }
+         END { print "" }' total_size=$(stat -c '%s' "${1}") count=0
 }
 
 
