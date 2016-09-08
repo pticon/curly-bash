@@ -132,10 +132,10 @@ function extract()
 
 	if [ -f $archive ] ; then
 		case $archive in
-			*.tar.bz2)
+			*.tbz2|*.tar.bz2)
 				tar xjf $archive ;;
 
-			*.tar.gz)
+			*.tgz|*.tar.gz)
 				tar xzf $archive ;;
 
 			*.bz2)
@@ -149,12 +149,6 @@ function extract()
 
 			*.tar)
 				tar xf $archive ;;
-
-			*.tbz2)
-				tar xjf $archive ;;
-
-			gz)
-				tar xzf $archive ;;
 
 			*.zip)
 				unzip $archive ;;
