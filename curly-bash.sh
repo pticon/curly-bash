@@ -310,6 +310,14 @@ function findsuid()
 	done
 }
 
+# backup file
+function bu()
+{
+	local original="$1"
+
+	cp -r "$original" "${original}-$(date '+%D-%R' | tr '/' '-' | tr ':' '_')"
+}
+
 
 # color
 export black="\[\033[0;38;5;0m\]"
