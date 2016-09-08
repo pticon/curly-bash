@@ -281,6 +281,11 @@ function noscreensaver()
 	xset -dpms; xset s noblank; xset s off
 }
 
+function rebash()
+{
+	. ~/.bashrc
+}
+
 
 # color
 export black="\[\033[0;38;5;0m\]"
