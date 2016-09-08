@@ -20,4 +20,4 @@ Add a section in your ~/.gitconfig:
 ## vimrc
 Add a line in your ~/.vimrc:
 
-	source /path/to/vimrc
+	source /path/to/curly-vimrc
