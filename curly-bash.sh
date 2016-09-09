@@ -182,7 +182,7 @@ function check_tor()
 		else
 			echo "Could not find init script for Tor ..."
 			echo "Exiting ..."
-			exit 1
+			return 1
 		fi
 	else
 		echo "Tor process found ..."
@@ -315,7 +315,32 @@ function bu()
 {
 	local original="$1"
 
+	[ -n $original ] || return
+
 	cp -r "$original" "${original}-$(date '+%D-%R' | tr '/' '-' | tr ':' '_')"
+}
+
+# very useful for debugging bash script
+# +(somefile.bash:412): myfunc(): echo 'Hello world'
+function debugbash()
+{
+	export PS4='+(${BASH_SOURCE}:${LINENO}): ${FUNCNAME[0]:+${FUNCNAME[0]}(): }'
+}
+
+function undebugbash()
+{
+	export PS4=''
+}
+
+# Dos to unix
+# remove '\r'
+function dtox()
+{
+	local dos="$1"
+
+	[ -n $dos ] || return
+
+	cat $dos | tr -d '\r'
 }
 
 
