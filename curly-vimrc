@@ -1,3 +1,62 @@
+" Sets how many lines of history VIM has to remember
+set history=500
+
+" Set to auto read when a file is changed from the outside
+set autoread
+
+" I use dark screen
 set background=dark
+
+" Avoid garbled characters in Chinese language windows OS
+let $LANG='en'
+set langmenu=en
+
+" Turn on the WiLd menu
+set wildmenu
+
+"Always show current position
+set ruler
+
+" Set line number
 set nu
+
+" Highlight search
 set hlsearch
+
+" Show matching brackets when text indicator is over them
+set showmatch
+
+" Turn backup off, since most stuff is in SVN, git et.c anyway...
+set nobackup
+set nowb
+set noswapfile
+
+" Auto indent
+set ai
+
+" Smart indent
+set si
+
+" Wrap lines
+set wrap
+
+" Always show the status line
+set laststatus=2
+
+" Delete trailing white space on save, useful for Python and CoffeeScript ;)
+func! DeleteTrailingWS()
+  exe "normal mz"
+  %s/\s\+$//ge
+  exe "normal `z"
+endfunc
+autocmd BufWrite *.py :call DeleteTrailingWS()
+autocmd BufWrite *.coffee :call DeleteTrailingWS()
+
+" Turn on syntax highlighting
+syntax on
+
+" Ignore case when searching..
+set ignorecase
+
+" vim NOT vi
+set nocompatible
