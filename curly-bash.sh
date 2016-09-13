@@ -95,9 +95,22 @@ function cdmk()
 	mkdir -p "$mydir" && cd "$mydir"
 }
 
+# Take care of the OUI and avoid some issue with the b0 and b1 which are the "multicast" bit and
+# the "local" bit respectively
 function random_ether()
 {
-	echo "$(openssl rand 1 | hexdump -e '/1 "%02x"')""$(openssl rand 5 | hexdump -e '/1 ":%02x"')"
+	echo "64:00:6a$(openssl rand 3 | hexdump -e '/1 ":%02x"')"
+}
+
+function set_random_ether()
+{
+	local iface="$1"
+
+	[ -n "$iface" ] || return
+
+	sudo ip link set dev $iface down
+	sudo ip link set dev $iface addr $(random_ether)
+	sudo ip link set dev $iface up
 }
 
 function up()
