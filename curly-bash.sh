@@ -23,7 +23,8 @@ export PAGER=less
 # alias stuffs
 alias la='ls -a'
 alias ll='ls -l'
-alias llh='ll -lh'
+alias llh='ls -lh'
+alias lla='ls -la'
 alias ls='ls --color'
 alias l='ls'
 alias sl='ls'
@@ -354,6 +355,22 @@ function dtox()
 	[ -n $dos ] || return
 
 	cat $dos | tr -d '\r'
+}
+
+function diskspace() {
+	local tempfile=`mktemp`
+
+	cat << 'EOF' > $tempfile
+		{ sum += $4 }
+	END {
+		mb = sum / 1024
+		gb = mb / 1024
+		printf "%.0f MB (%.2fGB) of available disk space\n", mb, gb
+	}
+EOF
+
+	df -k | awk -f $tempfile
+	rm -f $tempfile
 }
 
 
