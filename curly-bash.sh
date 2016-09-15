@@ -331,7 +331,7 @@ function bu()
 {
 	local original="$1"
 
-	[ -n $original ] || return
+	[ -n "$original" ] || return
 
 	cp -r "$original" "${original}-$(date '+%D-%R' | tr '/' '-' | tr ':' '_')"
 }
@@ -354,7 +354,7 @@ function dtox()
 {
 	local dos="$1"
 
-	[ -n $dos ] || return
+	[ -n "$dos" ] || return
 
 	cat $dos | tr -d '\r'
 }
