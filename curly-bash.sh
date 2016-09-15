@@ -59,6 +59,8 @@ alias top='htop'
 
 alias scope='cscope -bR'
 
+alias more='less'
+
 # Wraps Sprunge, a commandline pastebin tool
 # echo "hello" | sprunge
 # cat file | sprunge
@@ -371,6 +373,30 @@ EOF
 
 	df -k | awk -f $tempfile
 	rm -f $tempfile
+}
+
+function clearpass()
+{
+	local iface="$1"
+
+	[ -n "$iface" ] || (echo "Please specify interface" && return)
+
+	sudo tcpdump -i $iface port http or port ftp or port smtp or port imap or port pop3 or port rpc -l -A \
+		| egrep -i 'pass=|pwd=|log=|login=|user=|username=|pw=|passw=|passwd=|password=|name=|name:|pass:|user:|username:|password:|login:|pass |user |passwd.byname' --color=auto --line-buffered -B20
+}
+
+function lastlogin()
+{
+	lastlog | grep -v Never
+}
+
+# Useful to have the header of the command
+function header()
+{
+	local cmd="$1"
+	local grepper="$2"
+
+	$cmd | head -1 && $cmd | grep $grepper
 }
 
 

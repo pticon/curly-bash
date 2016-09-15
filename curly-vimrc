@@ -60,3 +60,9 @@ set ignorecase
 
 " vim NOT vi
 set nocompatible
+
+" Makefile stuff
+autocmd FileType make set ts=4 noet
+
+" Txt stuff
+autocmd FileType text set spell wrap linebreak nolist textwidth=80
