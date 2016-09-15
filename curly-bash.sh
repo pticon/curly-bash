@@ -298,6 +298,8 @@ function rebash()
 	. ~/.bashrc
 }
 
+# FIXME
+# allow arguments for the find command
 function findsuid()
 {
 	local mtime="7"	# how far back (in days) to check for modified cmds
@@ -397,6 +399,52 @@ function header()
 	local grepper="$2"
 
 	$cmd | head -1 && $cmd | grep $grepper
+}
+
+# Bookmarks directories
+function cdb()
+{
+	local bookmarks="$HOME/.cdbookmarks"
+
+	if [ ! -e $bookmarks ]; then
+		mkdir $bookmarks
+	fi
+
+	case $1 in
+		-c) shift
+		if [ ! -f $bookmarks/$1 ]; then
+			echo "cd `pwd`" > $bookmarks/$1
+		else
+			echo "Bookmark $1 already exists !"
+		fi
+		;;
+
+		-g) shift
+		if [ -f $bookmarks/$1 ]; then
+			source $bookmarks/$1
+		else
+			echo "No such bookmark: $1"
+		fi
+		;;
+
+		-d) shift
+		if [ -f $bookmarks/$1 ]; then
+			rm -f $bookmarks/$1
+		fi
+		;;
+
+		-l) shift
+		local i
+		for i in $(ls $bookmarks/); do
+			echo -n "$i: "
+			cat $bookmarks/$i | cut -d " " -f 2
+		done
+		;;
+
+
+		*) echo "cdb [-c|-g|-d|-l] [bookmark]"
+		;;
+	esac
 }
 
 
