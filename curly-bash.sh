@@ -121,7 +121,7 @@ function up()
 	local counter=$1
 	local up=""
 
-	[ -n "$counter" ] || return
+	[ -n "$counter" ] || counter=1
 
 	while [[ $counter -gt 0 ]]
 	do
