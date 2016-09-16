@@ -116,6 +116,16 @@ function set_random_ether()
 	sudo ip link set dev $iface up
 }
 
+# Autocompletion for set_random_ether
+function _set_random_ether()
+{
+	local cur="${COMP_WORDS[COMP_CWORD]}"
+
+	COMPREPLY=( $(compgen -W "`ip link show | grep state | cut -d ':' -f 2`" -- ${cur}) )
+	return 0
+}
+complete -F _set_random_ether set_random_ether
+
 function up()
 {
 	local counter=$1
