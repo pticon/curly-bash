@@ -447,6 +447,30 @@ function cdb()
 	esac
 }
 
+# Autocompletion for cdb()
+_cdb()
+{
+	local bookmarks="$HOME/.cdbookmarks"
+	local cur prev opts
+	COMPREPLY=()
+
+	cur="${COMP_WORDS[COMP_CWORD]}"
+	prev="${COMP_WORDS[COMP_CWORD-1]}"
+	opts="-c -g -d -l -h"
+
+	if [[ ${cur} == -* ]]; then
+		COMPREPLY=( $(compgen -W "${opts}" -- ${cur}) )
+		return 0
+	fi
+
+	case ${prev} in
+		-g|-d)
+		COMPREPLY=( $(compgen -W "`ls $bookmarks`" -- ${cur}) )
+		return 0
+		;;
+	esac
+}
+complete -F _cdb cdb
 
 # color
 export black="\[\033[0;38;5;0m\]"
