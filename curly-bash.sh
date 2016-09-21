@@ -182,6 +182,9 @@ function extract()
 			*.Z)
 				uncompress $archive ;;
 
+			*.tar.xz|*.txz)
+				tar xfJ $archive ;;
+
 			*)
 				echo "'$archive' cannot be extracted via extract()" ;;
 		esac
@@ -481,6 +484,64 @@ _cdb()
 	esac
 }
 complete -F _cdb cdb
+
+function addrif4()
+{
+	local iface=$1
+
+	if [ ! -n "$iface" ]; then
+		echo "No interface specified"
+		return
+	fi
+
+	ip addr show "$1" | grep -w inet | awk '{print $2}' | cut -d '/' -f 1
+}
+
+function addrif6()
+{
+	local iface=$1
+
+	if [ ! -n "$iface" ]; then
+		echo "No interface specified"
+		return
+	fi
+
+	ip addr show "$1" | awk '/inet6/ {print $2}' | cut -d '/' -f 1
+}
+
+function _addrif()
+{
+	local cur prev opts
+	COMPREPLY=()
+
+	cur="${COMP_WORDS[COMP_CWORD]}"
+	prev="${COMP_WORDS[COMP_CWORD-1]}"
+
+	if [ ! -n "$prev" ]; then
+		return
+	fi
+
+	COMPREPLY=( $(compgen -W "`ip link show | grep state | cut -d ':' -f 2`" -- ${cur}) )
+}
+complete -F _addrif addrif4
+complete -F _addrif addrif6
+
+# Forward all the received traffic to the specified interface
+# see ip masquerade
+function ipforward()
+{
+	local outif=$1
+
+	if [ ! -n "$outif" ]; then
+		echo "No interface specified"
+		return
+	fi
+
+	sudo sysctl -w net.ipv4.ip_forward=1
+
+	sudo iptables -t nat -F
+	sudo iptables -t nat -A POSTROUNTIG -o $outif -j SNAT --to $(addrif $outif)
+}
 
 # color
 export black="\[\033[0;38;5;0m\]"
