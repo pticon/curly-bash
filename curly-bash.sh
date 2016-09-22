@@ -543,6 +543,24 @@ function ipforward()
 	sudo iptables -t nat -A POSTROUNTIG -o $outif -j SNAT --to $(addrif $outif)
 }
 
+function rmmk()
+{
+	local target="$1"
+
+	[ -n "$target" ] || return
+
+	rm -fr $1 && mkdir $1
+}
+
+function sshremove()
+{
+	local ip="$1"
+
+	[ -n "$ip" ] || return
+
+	ssh-keygen -f "${HOME}/.ssh/known_hosts" -R $ip
+}
+
 # color
 export black="\[\033[0;38;5;0m\]"
 export red="\[\033[0;38;5;1m\]"
