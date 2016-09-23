@@ -61,6 +61,8 @@ alias scope='cscope -bR'
 
 alias more='less'
 
+alias upgrade='sudo apt-get update && sudo apt-get upgrade -y'
+
 # Wraps Sprunge, a commandline pastebin tool
 # echo "hello" | sprunge
 # cat file | sprunge
