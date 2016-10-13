@@ -43,6 +43,12 @@ set wrap
 " Always show the status line
 set laststatus=2
 
+
+if has('gui_running')
+	colorscheme desert
+endif
+
+
 " Delete trailing white space on save, useful for Python and CoffeeScript ;)
 func! DeleteTrailingWS()
   exe "normal mz"
@@ -66,3 +72,9 @@ autocmd FileType make set ts=4 noet
 
 " Txt stuff
 autocmd FileType text set spell wrap linebreak nolist textwidth=80
+
+" Encoding used for the terminal.
+set termencoding=utf-8
+
+" Expand <tab> when writing Python
+autocmd FileType python set expandtab
