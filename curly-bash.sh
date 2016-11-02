@@ -563,6 +563,17 @@ function sshremove()
 	ssh-keygen -f "${HOME}/.ssh/known_hosts" -R $ip
 }
 
+function endianness()
+{
+	local R=`echo -n I | hexdump -o | awk '{ print substr($2,6,1); exit}'`
+
+	if [ "$R" -eq 1 ]; then
+		echo "little"
+	else
+		echo "big"
+	fi
+}
+
 # color
 export black="\[\033[0;38;5;0m\]"
 export red="\[\033[0;38;5;1m\]"
