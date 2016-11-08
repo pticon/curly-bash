@@ -527,6 +527,7 @@ function _addrif()
 }
 complete -F _addrif addrif4
 complete -F _addrif addrif6
+complete -F _addrif ifconfig
 
 # Forward all the received traffic to the specified interface
 # see ip masquerade
