@@ -1,7 +1,3 @@
-[user]
-	name = Pierre Lebleu
-	email = pierre.lebleu@technicolor.com
-
 [color]
 	ui = auto
 
