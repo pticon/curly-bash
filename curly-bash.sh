@@ -51,7 +51,7 @@ alias flush='sync'
 
 alias psme='ps -ef | grep $USER'
 
-alias nocomment='grep -Ev '\''^(#|$)'\'''
+alias nocomment='grep -Ev '\''^(#|$|;)'\'''
 
 alias now='date +"%T"'
 
