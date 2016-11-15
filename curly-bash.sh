@@ -529,6 +529,19 @@ complete -F _addrif addrif4
 complete -F _addrif addrif6
 complete -F _addrif ifconfig
 
+function vlanadd()
+{
+	local interface="$1"
+	local vlan="$2"
+
+	if [ -z "$interface" ] || [ -z "$vlan" ] ; then
+		echo "vlanadd <interface> <vlanid>"
+	else
+		sudo ip link add link $interface name $interface.$vlan type vlan id $vlan
+	fi
+}
+complete -F _addrif vlanadd
+
 # Forward all the received traffic to the specified interface
 # see ip masquerade
 function ipforward()
