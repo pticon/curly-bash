@@ -613,7 +613,7 @@ export LESS_TERMCAP_us=$(printf '\e[04;38;5;200m') # enter underline mode
 
 # PS1
 if [ $(/usr/bin/whoami) = 'root' ]; then
-    export PS1="${yellow}\u@\h${white}:${norm}\w${norm}${lred}#${norm} "
+    export PS1="${yellow}\u@\h ${orange}\T ${white}${norm}\w${norm}${lred}#${norm} "
 else
-    export PS1="${yellow}\u@\h${white}:${norm}\w${norm}\$ "
+    export PS1="${yellow}\u@\h ${orange}\T ${white}${norm}\w${norm}\$ "
 fi
