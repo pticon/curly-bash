@@ -523,7 +523,7 @@ function _addrif()
 		return
 	fi
 
-	COMPREPLY=( $(compgen -W "`ip link show | grep state | cut -d ':' -f 2`" -- ${cur}) )
+	COMPREPLY=( $(compgen -W "`ip link show | grep state | cut -d ':' -f 2 | cut -d '@' -f 1`" -- ${cur}) )
 }
 complete -F _addrif addrif4
 complete -F _addrif addrif6
