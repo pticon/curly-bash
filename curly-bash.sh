@@ -588,6 +588,11 @@ function endianness()
 	fi
 }
 
+function screenshot() # imagename
+{
+	import -window root -display :0.0 -screen $@
+}
+
 # color
 export black="\[\033[0;38;5;0m\]"
 export red="\[\033[0;38;5;1m\]"
