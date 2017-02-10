@@ -28,6 +28,7 @@ alias lla='ls -la'
 alias ls='ls --color'
 alias l='ls'
 alias sl='ls'
+alias grpe='grep'
 
 alias s='cd ..'
 alias ..='cd ..'
