@@ -36,6 +36,9 @@ alias ..='cd ..'
 alias grep='grep --color'
 alias egrep='egrep --color'
 alias fgrep='fgrep --color'
+alias grpe='grep'
+alias fgrpe='fgrep'
+alias egrpe='egrep'
 
 alias boxserial='cu -s 115200 -l /dev/ttyUSB0'
 
@@ -100,6 +103,11 @@ function cdmk()
 {
 	local mydir="$1"
 	mkdir -p "$mydir" && cd "$mydir"
+}
+
+function mkcd()
+{
+	cdmk $@
 }
 
 # Take care of the OUI and avoid some issue with the b0 and b1 which are the "multicast" bit and
@@ -220,6 +228,7 @@ function check_tor()
 	else
 		echo "Tor process found ..."
 		echo "Tor is currently running ..."
+		echo "Tor IP : $(proxychains myip | grep -v ProxyChains)"
 	fi
 }
 
