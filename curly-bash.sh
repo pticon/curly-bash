@@ -604,6 +604,21 @@ function screenshot() # imagename
 	import -window root -display :0.0 -screen $@
 }
 
+function socksproxy()
+{
+	local server="$1"
+	local user="${2:-root}"
+	local proxyport="${3:-1080}"
+
+	[ -z "$server" ] && {
+		echo "socksproxy <srv> [usr] [socks port]"
+		return
+	}
+
+	ssh -D "$proxyport" -f -C -q -N "$user"@"$server" &&
+		echo "A socks proxy is open on localhost:$proxyport"
+}
+
 # color
 export black="\[\033[0;38;5;0m\]"
 export red="\[\033[0;38;5;1m\]"
