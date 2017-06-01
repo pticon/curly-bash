@@ -609,14 +609,15 @@ function socksproxy()
 	local server="$1"
 	local user="${2:-root}"
 	local proxyport="${3:-1080}"
+	local sport="${4:-22}"
 
 	[ -z "$server" ] && {
-		echo "socksproxy <srv> [usr] [socks port]"
+		echo "socksproxy <srv> [usr] [socks port] [srv port]"
 		return
 	}
 
-	ssh -D "$proxyport" -f -C -q -N "$user"@"$server" &&
-		echo "A socks proxy is open on localhost:$proxyport"
+	ssh -D "$proxyport" -f -C -q -N -p "$sport" "$user"@"$server" &&
+		echo "A socks proxy is open on localhost:$proxyport -> $server:$sport"
 }
 
 # color
