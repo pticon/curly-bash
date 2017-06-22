@@ -549,6 +549,8 @@ function vlanadd()
 		echo "vlanadd <interface> <vlanid>"
 	else
 		sudo ip link add link $interface name $interface.$vlan type vlan id $vlan
+		sudo ifconfig $interface.$vlan up
+		ifconfig $interface.$vlan
 	fi
 }
 complete -F _addrif vlanadd
