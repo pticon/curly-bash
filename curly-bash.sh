@@ -29,6 +29,7 @@ alias ls='ls --color'
 alias l='ls'
 alias sl='ls'
 alias grpe='grep'
+alias gpre='grep'
 
 alias s='cd ..'
 alias ..='cd ..'
