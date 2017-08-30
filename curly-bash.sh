@@ -623,6 +623,27 @@ function socksproxy()
 		echo "A socks proxy is open on localhost:$proxyport -> $server:$sport"
 }
 
+function sshnopasswd()
+{
+	local server="$1"
+	local user="${2:-root}"
+	local port="${3:-22}"
+	local remoteauthkeys="$4"
+	local localpubkey="$5"
+
+	[ -z "$server" ] && {
+		echo "sshnopasswd <srv> [usr] [port] [remoteauthkey] [localpubkey]"
+		echo "example:"
+		echo -e "\tsshnopasswd 192.168.1.1 root 22 /etc/dropbear/authorized_keys ~/.ssh/id_rsa.pub"
+		return
+	}
+
+	[ -z "$remoteauthkeys" ] && remoteauthkeys="~/.ssh/authorized_keys"
+	[ -z "$localpubkey" ] && localpubkey="~/.ssh/id_rsa.pub"
+
+	cat $localpubkey | ssh -p "$port" "$user"@"$server" "cat - >> $remoteauthkeys"
+}
+
 # color
 export black="\[\033[0;38;5;0m\]"
 export red="\[\033[0;38;5;1m\]"
