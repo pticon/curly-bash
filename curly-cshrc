@@ -1,0 +1,79 @@
+# .cshrc - csh resource script, read at beginning of execution by each shell
+#
+# see also csh(1), environ(7).
+#
+
+alias h		history 100
+
+alias j		jobs -l
+
+alias la	ls -a
+alias lf	ls -FA
+alias ll	ls -lA
+alias ls	ls -G
+alias l	l
+alias sl	ls
+alias llh	'ls -lh'
+alias lla	'ls -la'
+
+alias grpe	grep
+alias gpre	grep
+
+alias s	'cd ..'
+alias ..	'cd ..'
+
+alias vi 	vim
+
+alias scope	'cscope -bR'
+
+alias recsh	source ~/.cshrc
+
+alias serve	'python -m SimpleHTTPServer'
+
+# A righteous umask
+umask 22
+
+set path = (/sbin /bin /usr/sbin /usr/bin /usr/games /usr/local/sbin /usr/local/bin $HOME/bin)
+
+setenv	CLICOLOR true
+setenv	EDITOR	vi
+setenv	PAGER	less
+setenv	BLOCKSIZE	K
+
+if ($?prompt) then
+	# An interactive shell -- set some stuff up
+	switch ($TERM)
+		case "xterm*":
+			set prompt = '%{\033]0;%n@%m:%~\007%}[%B%n@%m%b] %B%~%b%# '
+			breaksw
+		default:
+			set prompt = '[%B%n@%m%b] %B%~%b%# '
+			breaksw
+	endsw
+	set autolist = ambiguous
+	set complete = enhance
+	set correct = cmd
+	set filec
+	set autocorrect
+	set filec
+	set history = 500
+	set savehist = 100
+	# Use history to aid expansion
+	set autoexpand
+	set autorehash
+	set mail = (/var/mail/$USER)
+	if ( $?tcsh ) then
+		bindkey "^W" backward-delete-word
+		bindkey -k up history-search-backward
+		bindkey -k down history-search-forward
+	endif
+endif
+
+if ( $OSTYPE == FreeBSD ) then
+	alias colorls "/bin/ls -FGg"
+	alias ls "ls-F -FGg"
+	alias top "/usr/bin/top -s1"
+	setenv EDITOR "/usr/local/bin/vim"
+	setenv VISUAL $EDITOR
+endif
+

@@ -6,6 +6,11 @@ In your bashrc, you could add:
 
 	source /path/to/curly-bash.sh
 
+## cshrc
+In your cshrc, you could add:
+
+	source /path/to/curly-cshrc
+
 ## screenrc
 I didn't find an easy way to source it...
 
