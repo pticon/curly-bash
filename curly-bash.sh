@@ -198,6 +198,9 @@ function extract()
 			*.tar.xz|*.txz)
 				tar xfJ $archive ;;
 
+			*.xz)
+				unxz $archive ;;
+
 			*)
 				echo "'$archive' cannot be extracted via extract()" ;;
 		esac
