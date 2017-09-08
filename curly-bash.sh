@@ -103,6 +103,12 @@ function myip()
 function cdmk()
 {
 	local mydir="$1"
+
+	[ -z "$mydir" ] && {
+		echo "cdmk: missing operand"
+		return -1
+	}
+
 	mkdir -p "$mydir" && cd "$mydir"
 }
 
