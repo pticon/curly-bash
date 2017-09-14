@@ -653,6 +653,29 @@ function sshnopasswd()
 	cat $localpubkey | ssh -p "$port" "$user"@"$server" "cat - >> $remoteauthkeys"
 }
 
+function youtube2mp3()
+{
+	local url="$1"
+
+	[ -z "$url" ] && {
+		echo "youtube2mp3 <url>"
+		return
+	}
+
+	local prg="$(which youtube-dl)"
+
+	[ -z "$prg" ] && {
+		echo "youtube-dl not installed !"
+		echo "You should do :"
+		echo "wget https://yt-dl.org/downloads/latest/youtube-dl"
+		echo "chmod +x youtube-dl"
+		echo "sudo mv youtube-dl /usr/local/bin/"
+		return
+	}
+
+	youtube-dl --extract-audio --audio-format mp3 "$url"
+}
+
 # color
 export black="\[\033[0;38;5;0m\]"
 export red="\[\033[0;38;5;1m\]"
