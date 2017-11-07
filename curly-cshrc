@@ -11,7 +11,7 @@ alias la	ls -a
 alias lf	ls -FA
 alias ll	ls -lA
 alias ls	ls -G
-alias l	l
+alias l	ls
 alias sl	ls
 alias llh	'ls -lh'
 alias lla	'ls -la'
