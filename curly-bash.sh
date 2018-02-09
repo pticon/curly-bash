@@ -691,6 +691,20 @@ function skel_python()
 	echo -e "#!/usr/bin/env python\n# *-* coding: utf-8 *-*\n\nif __name__ == "__main__":\n\t"
 }
 
+function ip2geo()
+{
+	local ip="$1"
+
+	[ -z "$ip" ] && {
+		echo "ip2geo <ipaddr>"
+		return
+	}
+
+	wget -qO- "http://xml.utrace.de/?query=$ip" \
+		| sed -e '4d; s/<[^>]*>//g; s/\t//g; /^$/d' \
+		| tr \\n ' '
+}
+
 # color
 export black="\[\033[0;38;5;0m\]"
 export red="\[\033[0;38;5;1m\]"
