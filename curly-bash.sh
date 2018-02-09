@@ -681,6 +681,11 @@ function retry_until_success()
 	while ! $@ ; do sleep 1 ; done
 }
 
+function skel_c()
+{
+	echo -e "#include <stdio.h>\n\nint main(int argc, char *argv[]) {\n\n\n\treturn 0;\n}"
+}
+
 # color
 export black="\[\033[0;38;5;0m\]"
 export red="\[\033[0;38;5;1m\]"
