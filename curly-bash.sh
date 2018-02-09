@@ -686,6 +686,11 @@ function skel_c()
 	echo -e "#include <stdio.h>\n\nint main(int argc, char *argv[]) {\n\n\n\treturn 0;\n}"
 }
 
+function skel_python()
+{
+	echo -e "#!/usr/bin/env python\n# *-* coding: utf-8 *-*\n\nif __name__ == "__main__":\n\t"
+}
+
 # color
 export black="\[\033[0;38;5;0m\]"
 export red="\[\033[0;38;5;1m\]"
