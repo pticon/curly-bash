@@ -676,6 +676,11 @@ function youtube2mp3()
 	youtube-dl --extract-audio --audio-format mp3 "$url"
 }
 
+function retry_until_success()
+{
+	while ! $@ ; do sleep 1 ; done
+}
+
 # color
 export black="\[\033[0;38;5;0m\]"
 export red="\[\033[0;38;5;1m\]"
