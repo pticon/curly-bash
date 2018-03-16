@@ -69,6 +69,8 @@ alias more='less'
 alias upgrade='sudo apt-get update && sudo apt-get upgrade -y'
 alias distupgrade='sudo apt-get update && sudo apt-get dist-upgrade -y'
 
+alias ff="find . -type f"
+
 # Wraps Sprunge, a commandline pastebin tool
 # echo "hello" | sprunge
 # cat file | sprunge
