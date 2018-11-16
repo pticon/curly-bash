@@ -685,12 +685,21 @@ function retry_until_success()
 
 function skel_c()
 {
-	echo -e "#include <stdio.h>\n\nint main(int argc, char *argv[]) {\n\n\n\treturn 0;\n}"
+	echo -e "#include <stdio.h>\n\nint main(int argc, char *argv[])\n{\n\treturn 0;\n}"
+}
+
+function skel_c_mod()
+{
+	echo -e "#include <linux/init.h>\n#include <linux/module.h>\n#include <linux/kernel.h>\n"
+	echo -e "static int __init lkm_init(void)\n{\n\treturn 0;\n}\n"
+	echo -e "static void __exit lkm_exit(void)\n{\n}\n"
+	echo -e "module_init(lkm_init);\nmodule_exit(lkm_exit);\n"
+	echo -e "MODULE_LICENSE(\"GPL\");\n"
 }
 
 function skel_python()
 {
-	echo -e "#!/usr/bin/env python\n# *-* coding: utf-8 *-*\n\nif __name__ == "__main__":\n\t"
+	echo -e "#!/usr/bin/env python\n# *-* coding: utf-8 *-*\n\nif __name__ == "__main__":\n\tpass"
 }
 
 function ip2geo()
