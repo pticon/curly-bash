@@ -696,7 +696,7 @@ function skel_c_makefile()
 	echo -e "ifeq (\$(VERBOSE),1)\nQ=\necho-cmd=\nelse\nQ=@\necho-cmd=@echo \$(1)\nendif\n\n"
 	echo -e "SRCS:=main.c\nSRCS+=\n\n"
 	echo -e "OBJS:=\$(SRCS:%.c=%.o)\n\n"
-	echo -e "all: \$(TARGETS)\n\n"
+	echo -e "all: \$(TARGET)\n\n"
 	echo -e "\$(TARGET): \$(OBJS)\n\t\$(call echo-cmd, \"  LD   \$@\")\n\t\$(Q)\$(LD) -o \$@ \$^ \$(LDFLAGS)\n\n"
 	echo -e "%.o: %.c\n\t\$(call echo-cmd, \"  CC   \$@\")\n\t\$(Q)\$(CC) \$(CFLAGS) -c \$< -o \$@\n\n"
 	echo -e ".PHONY: clean\n\n"
