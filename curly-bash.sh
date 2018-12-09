@@ -688,6 +688,21 @@ function skel_c()
 	echo -e "#include <stdio.h>\n\nint main(int argc, char *argv[])\n{\n\treturn 0;\n}"
 }
 
+function skel_c_makefile()
+{
+	echo -e "TARGET=\n\n"
+	echo -e "CC:=gcc\nLD:=gcc\nCFLAGS:=-Wall\nLDFLAGS:=\n\n"
+	echo -e "ifeq (\$(DEBUG), 1)\nCFLAGS+=-O0 -g -DDEBUG\nelse\nCFLAGS+=-O3\nendif\n\n"
+	echo -e "ifeq (\$(VERBOSE),1)\nQ=\necho-cmd=\nelse\nQ=@\necho-cmd=@echo \$(1)\nendif\n\n"
+	echo -e "SRCS:=main.c\nSRCS+=\n\n"
+	echo -e "OBJS:=\$(SRCS:%.c=%.o)\n\n"
+	echo -e "all: \$(TARGETS)\n\n"
+	echo -e "\$(TARGET): \$(OBJS)\n\t\$(call echo-cmd, \"  LD   \$@\")\n\t\$(Q)\$(LD) -o \$@ \$^ \$(LDFLAGS)\n\n"
+	echo -e "%.o: %.c\n\t\$(call echo-cmd, \"  CC   \$@\")\n\t\$(Q)\$(CC) \$(CFLAGS) -c \$< -o \$@\n\n"
+	echo -e ".PHONY: clean\n\n"
+	echo -e "clean:\n\t\$(call echo-cmd, \"  CLEAN\")\n\t\$(Q)rm -f \$(TARGET) \$(OBJS)"
+}
+
 function skel_c_mod()
 {
 	echo -e "#include <linux/init.h>\n#include <linux/module.h>\n#include <linux/kernel.h>\n"
