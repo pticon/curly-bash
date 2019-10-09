@@ -92,3 +92,6 @@ set termencoding=utf-8
 
 " Expand <tab> when writing Python
 autocmd FileType python set expandtab
+
+" Enable the use of the mouse
+set mouse=a
