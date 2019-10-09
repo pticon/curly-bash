@@ -47,3 +47,8 @@ hardstatus string '%{= kG}[ %{G}%H %{g}][%= %{= kw}%?%-Lw%?%{r}(%{W}%n*%f%t%?(%u
 #  %=         - truncation/paddion point.
 # %{= .y}     - yellow on default background.
 # %l - host load average.
+
+# This command determines whether screen will watch for mouse clicks.
+# When this command is enabled, regions that have been split in various ways
+# can be selected by pointing to them with a mouse and left-clicking them.
+mousetrack on
