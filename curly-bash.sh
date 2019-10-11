@@ -209,6 +209,9 @@ function extract()
 			*.xz)
 				unxz $archive ;;
 
+			*.7z)
+				7z x $archive ;;
+
 			*)
 				echo "'$archive' cannot be extracted via extract()" ;;
 		esac
