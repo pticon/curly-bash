@@ -661,6 +661,7 @@ function sshnopasswd()
 function youtube2mp3()
 {
 	local url="$1"
+	shift
 
 	[ -z "$url" ] && {
 		echo "youtube2mp3 <url>"
@@ -678,7 +679,7 @@ function youtube2mp3()
 		return
 	}
 
-	youtube-dl --extract-audio --audio-format mp3 "$url"
+	youtube-dl --extract-audio --audio-format mp3 "$url" $*
 }
 
 function retry_until_success()
