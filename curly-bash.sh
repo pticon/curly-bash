@@ -735,6 +735,30 @@ function ip2geo()
 		| tr \\n ' '
 }
 
+function unixpath2dospath()
+{
+    local path="$1"
+
+    [ -z "${path}" ] && {
+        echo "unixpath2dospath <path>"
+        return
+    }
+
+    echo "${path}" | tr '/' '\\'
+}
+
+function dospath2unixpath()
+{
+    local path="$1"
+
+    [ -z "${path}" ] && {
+        echo "dospath2unixpath <path>"
+        return
+    }
+
+    echo "${path}" | tr '\\' '/'
+}
+
 # color
 export black="\[\033[0;38;5;0m\]"
 export red="\[\033[0;38;5;1m\]"
