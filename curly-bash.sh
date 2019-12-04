@@ -177,37 +177,37 @@ function extract()
 
 	[ -n "$archive" ] || return
 
-	if [ -f $archive ] ; then
-		case $archive in
+	if [ -f "$archive" ] ; then
+		case "$archive" in
 			*.tbz2|*.tar.bz2)
-				tar xjf $archive ;;
+				tar xvjf "$archive" ;;
 
 			*.tgz|*.tar.gz)
-				tar xzf $archive ;;
+				tar xvzf "$archive" ;;
 
 			*.bz2)
-				bunzip2 $archive ;;
+				bunzip2 "$archive" ;;
 
 			*.rar)
-				rar x $archive ;;
+				rar x "$archive" ;;
 
 			*.gz)
-				gunzip $archive ;;
+				gunzip "$archive" ;;
 
 			*.tar)
-				tar xf $archive ;;
+				tar vxf $archive ;;
 
 			*.zip)
-				unzip $archive ;;
+				unzip -v "$archive" ;;
 
 			*.Z)
-				uncompress $archive ;;
+				uncompress "$archive" ;;
 
 			*.tar.xz|*.txz)
-				tar xfJ $archive ;;
+				tar vxfJ "$archive" ;;
 
 			*.xz)
-				unxz $archive ;;
+				unxz "$archive" ;;
 
 			*.7z)
 				7z x $archive ;;
