@@ -17,7 +17,13 @@ fi
 
 # env stuffs
 export EDITOR=vim
+
+which most > /dev/null
+if [ $? = 0 ]; then
+export PAGER=most
+else
 export PAGER=less
+fi
 
 
 # alias stuffs
