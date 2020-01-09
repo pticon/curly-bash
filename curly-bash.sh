@@ -765,6 +765,58 @@ function dospath2unixpath()
     echo "${path}" | tr '\\' '/'
 }
 
+# Per directory history
+function history_guardian()
+{
+    local cmd="history_guardian"
+    local arg="$1"
+
+    [ -z "${arg}" ] && {
+        echo "${cmd} <start|stop|status>"
+        return
+    }
+
+    case "${arg}" in
+        start)
+        [ -n "${HISTORY_GUARDIAN}" ] && {
+             echo "${cmd} is already activated on `dirname ${HISTFILE}`"
+             return -1
+        } || {
+             history -a
+             export HISTORY_GUARDIAN="${HISTFILE}"
+             export HISTFILE="${PWD}/.history"
+             touch ${HISTFILE}
+        }
+        ;;
+
+        stop)
+        [ -z "${HISTORY_GUARDIAN}" ] && {
+             echo "${cmd} is already desactivated"
+             return -1
+        } || {
+             history -a
+             export HISTFILE="${HISTORY_GUARDIAN}"
+             unset HISTORY_GUARDIAN
+        }
+        ;;
+
+        status)
+        [ -z "${HISTORY_GUARDIAN}" ] && \
+             echo "${cmd} desactivated" || \
+             echo "${cmd} activated"
+        return
+        ;;
+
+        *)
+        echo "${cmd} <start|stop|status>"
+        return -1
+        ;;
+    esac
+
+    # read the histoy file and append contents to the list
+    history -r ${HISTFILE}
+}
+
 # color
 export black="\[\033[0;38;5;0m\]"
 export red="\[\033[0;38;5;1m\]"
