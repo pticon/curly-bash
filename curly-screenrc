@@ -52,3 +52,4 @@ hardstatus string '%{= kG}[ %{G}%H %{g}][%= %{= kw}%?%-Lw%?%{r}(%{W}%n*%f%t%?(%u
 # When this command is enabled, regions that have been split in various ways
 # can be selected by pointing to them with a mouse and left-clicking them.
 mousetrack on
+mousetrack off
