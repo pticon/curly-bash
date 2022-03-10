@@ -85,6 +85,9 @@ alias please=fuck
 # cat file | sprunge
 alias sprunge='curl -F "sprunge=<-" http://sprunge.us'
 
+# Get the latest file in the current dir
+alias latest='ls -t -1 -d * | head -n 1'
+
 # function stuffs
 function setproxy()
 {
