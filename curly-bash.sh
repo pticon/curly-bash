@@ -823,6 +823,26 @@ function history_guardian()
     history -r ${HISTFILE}
 }
 
+function patch_reverse()
+{
+    local cmd='patch_reverse'
+    local p="$1"
+
+    [ -z "$p" ] && {
+        echo "${cmd} file.patch"
+        return
+    }
+
+    which interdiff > /dev/null
+    [ $? -ne 0 ] && {
+        echo "No interdiff command available"
+        echo "sudo apt install patchutils"
+        return
+    }
+
+    interdiff -q $p /dev/null
+}
+
 # color
 export black="\[\033[0;38;5;0m\]"
 export red="\[\033[0;38;5;1m\]"
