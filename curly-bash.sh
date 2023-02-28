@@ -843,6 +843,19 @@ function patch_reverse()
     interdiff -q $p /dev/null
 }
 
+function rand_pw()
+{
+    local cmd='rand_pw'
+    local length="$1"
+
+    [ -z "$length" ] && {
+        echo "${cmd} <password_length>"
+        return
+    }
+
+    < /dev/urandom tr -dc _A-Z-a-z-0-9 | head -c ${1:-$length} ; echo
+}
+
 # color
 export black="\[\033[0;38;5;0m\]"
 export red="\[\033[0;38;5;1m\]"
