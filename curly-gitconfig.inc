@@ -26,7 +26,7 @@
 	dump = cat-file -p
 
 [diff]
-        tool = vindiff
+        tool = vimdiff
 
 [difftool]
         prompt = false
