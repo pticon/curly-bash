@@ -89,6 +89,18 @@ alias sprunge='curl -F "sprunge=<-" http://sprunge.us'
 alias latest='ls -t -1 -d * | head -n 1'
 
 # function stuffs
+function lllh()
+{
+    local link="$1"
+
+    [ -z "${link}" -o ! -L "${link}" ] && {
+        echo "lllh <symlink>"
+        return
+    }
+
+    ls -lh `readlink -f ${link}`
+}
+
 function setproxy()
 {
 	export ftp_proxy=$MYPROXY
