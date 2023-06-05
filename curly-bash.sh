@@ -655,13 +655,15 @@ function socksproxy()
 	local proxyport="${3:-1080}"
 	local sport="${4:-22}"
 
-	[ -z "$server" ] && {
+	[ -z "${server}" ] && {
 		echo "socksproxy <srv> [usr] [socks port] [srv port]"
 		return
 	}
 
-	ssh -D "$proxyport" -f -C -q -N -p "$sport" "$user"@"$server" &&
-		echo "A socks proxy is open on localhost:$proxyport -> $server:$sport"
+	ssh -D "${proxyport}" -f -C -q -N -p "${sport}" "${user}"@"${server}" && {
+		echo "A socks proxy is open on localhost:${proxyport} -> ${server}:${sport}"
+		echo "chromium --proxy-server=\"socks5://localhost:${proxyport}\""
+	}
 }
 
 function sshnopasswd()
