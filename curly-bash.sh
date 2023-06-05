@@ -624,9 +624,12 @@ function sshremove()
 {
 	local ip="$1"
 
-	[ -n "$ip" ] || return
+	[ -n "${ip}" ] || {
+		echo "usage: sshremove <ip>"
+		return
+	}
 
-	ssh-keygen -f "${HOME}/.ssh/known_hosts" -R $ip
+	ssh-keygen -f "${HOME}/.ssh/known_hosts" -R ${ip}
 }
 
 function endianness()
