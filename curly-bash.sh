@@ -783,7 +783,7 @@ do_parse_options()
                 ;;
         esac
     done
-    shift $((OPTIND-1))
+    shift \$((OPTIND-1))
 
     if [ -z "\${s}" ] ; then
         usage
