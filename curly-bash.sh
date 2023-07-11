@@ -750,6 +750,51 @@ function skel_python()
 	echo -e "#!/usr/bin/env python\n# *-* coding: utf-8 *-*\n\nif __name__ == "__main__":\n\tpass"
 }
 
+function skel_bash()
+{
+	cat <<EOF
+#!/bin/bash
+
+do_usage()
+{
+    echo "Usage: \$0" 1>&2
+    exit 1
+}
+
+do_log()
+{
+    local fmt="\$@"
+    echo "[\`date '+%d/%m/%Y %H:%M:%S'\`] \${fmt}"
+}
+
+do_parse_options()
+{
+    local o
+    local s
+
+    while getopts "s:h" o; do
+        case "\${o}" in
+            s)
+                s=\${OPTARG}
+                ((s == 45 || s == 90)) || usage
+                ;;
+            *)
+                usage
+                ;;
+        esac
+    done
+    shift $((OPTIND-1))
+
+    if [ -z "\${s}" ] ; then
+        usage
+    fi
+}
+
+do_parse_options
+
+EOF
+}
+
 function ip2geo()
 {
 	local ip="$1"
