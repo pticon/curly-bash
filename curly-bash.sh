@@ -795,18 +795,35 @@ do_parse_options
 EOF
 }
 
-function ip2geo()
+function ip2geo () 
 {
-	local ip="$1"
+    local ip="$1"
 
-	[ -z "$ip" ] && {
-		echo "ip2geo <ipaddr>"
-		return
-	}
+    # Check if IP address is provided
+    if [ -z "$ip" ]; then
+        echo "Usage: ip2geo <ipaddr>"
+        return 1
+    fi
 
-	wget -qO- "http://xml.utrace.de/?query=$ip" \
-		| sed -e '4d; s/<[^>]*>//g; s/\t//g; /^$/d' \
-		| tr \\n ' '
+    # Check if required tools are available
+    for cmd in curl jq; do
+        if ! command -v $cmd &> /dev/null; then
+            echo "Error: $cmd is not installed." >&2
+            return 1
+        fi
+    done
+
+    # Fetch and process geolocation data using ipinfo.io
+    local response=$(curl -s "http://ipinfo.io/$ip/json")
+
+    # Check if the response contains valid data
+    if [[ "$response" == *"error"* ]]; then
+        echo "Error: Invalid IP address or no data found." >&2
+        return 1
+    fi
+
+    # Use jq to parse and format the JSON data
+    echo "$response" | jq '.ip, .hostname, .city, .region, .country, .org'
 }
 
 function unixpath2dospath()
