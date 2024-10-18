@@ -56,7 +56,7 @@ alias sha1='openssl sha1'
 
 alias meminfo='free -m -l -t'
 
-alias serve='python -m SimpleHTTPServer'
+alias serve='python3 -m http.server'
 
 alias flush='sync'
 
