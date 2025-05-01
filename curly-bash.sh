@@ -922,18 +922,61 @@ function patch_reverse()
     interdiff -q $p /dev/null
 }
 
-function rand_pw()
-{
+function rand_pw() {
+    local length=""
+    local use_symbols=1
     local cmd='rand_pw'
-    local length="$1"
 
-    [ -z "$length" ] && {
-        echo "${cmd} <password_length>"
-        return
-    }
+    while [[ $# -gt 0 ]]; do
+        case "$1" in
+            --no-symbols)
+                use_symbols=0
+                shift
+                ;;
+            --symbols)
+                use_symbols=1
+                shift
+                ;;
+            --help|-h)
+                echo "Usage: ${cmd} [--symbols|--no-symbols] <length>"
+                return 0
+                ;;
+            *)
+                if [[ "$1" =~ ^[0-9]+$ ]]; then
+                    length="$1"
+                    shift
+                else
+                    echo "Invalid argument: $1"
+                    echo "Usage: ${cmd} [--symbols|--no-symbols] <length>"
+                    return 1
+                fi
+                ;;
+        esac
+    done
 
-    < /dev/urandom tr -dc _A-Z-a-z-0-9 | head -c ${1:-$length} ; echo
+    if [ -z "$length" ]; then
+        echo "Usage: ${cmd} [--symbols|--no-symbols] <length>"
+        return 1
+    fi
+
+    local python_code
+    if [[ "$use_symbols" -eq 1 ]]; then
+        python_code="
+import secrets
+alphabet = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#\$%^&*()-_=+[]{}:;,.?'
+print(''.join(secrets.choice(alphabet) for _ in range($length)))
+"
+    else
+        python_code="
+import secrets
+alphabet = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
+print(''.join(secrets.choice(alphabet) for _ in range($length)))
+"
+    fi
+
+    python3 -c "$python_code"
 }
+
 
 # color
 export black="\[\033[0;38;5;0m\]"
