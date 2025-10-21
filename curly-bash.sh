@@ -814,7 +814,7 @@ function ip2geo ()
     done
 
     # Fetch and process geolocation data using ipinfo.io
-    local response=$(curl -s "http://ipinfo.io/$ip/json")
+    local response=$(curl -s "https://ipinfo.io/$ip/json")
 
     # Check if the response contains valid data
     if [[ "$response" == *"error"* ]]; then
