@@ -174,6 +174,10 @@ function set_random_ether()
 	ip link set dev "${iface}" up || return 1
 }
 
+function sudo_set_random_ether() {
+    sudo bash -c "$(declare -f random_ether set_random_ether); set_random_ether $*"
+}
+
 # Autocompletion for set_random_ether
 function _set_random_ether()
 {
