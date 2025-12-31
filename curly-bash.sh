@@ -123,7 +123,20 @@ function unsetproxy()
 
 function myip()
 {
-	wget -qO - http://ipinfo.io/ip
+	curl -fsS 'https://ifconfig.me/ip'
+	echo
+}
+
+function myip4()
+{
+	curl -4fsS 'https://ifconfig.me/ip'
+	echo
+}
+
+function myip6()
+{
+	curl -6fsS 'https://ifconfig.me/ip'
+	echo
 }
 
 function cdmk()
