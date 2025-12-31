@@ -147,18 +147,31 @@ function mkcd()
 # the "local" bit respectively
 function random_ether()
 {
-	echo "64:00:6a$(openssl rand 3 | hexdump -e '/1 ":%02x"')"
+	printf '02:%s\n' "$(openssl rand -hex 5 | sed 's/\(..\)/\1:/g; s/:$//')"
 }
 
 function set_random_ether()
 {
 	local iface="$1"
+	local mac
 
-	[ -n "$iface" ] || return
+	if [ -z "${iface}" ]; then
+		echo "Usage: set_random_ether <iface>" >&2
+		return 1
+	fi
 
-	sudo ip link set dev $iface down
-	sudo ip link set dev $iface addr $(random_ether)
-	sudo ip link set dev $iface up
+	if ! ip link show "${iface}" >/dev/null 2>&1; then
+		echo "Interface not found: ${iface}" >&2
+		return 1
+	fi
+
+	mac="$(random_ether)"
+
+	echo "Setting MAC ${mac} on ${iface}"
+
+	ip link set dev "${iface}" down || return 1
+	ip link set dev "${iface}" address "$mac" || return 1
+	ip link set dev "${iface}" up || return 1
 }
 
 # Autocompletion for set_random_ether
